@@ -18,11 +18,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
-        View::composer(array('layouts.main', 'nades.nade-form'), function ($view) {
-            $viewData = array(
+        View::composer(['layouts.main', 'nades.nade-form'], function ($view) {
+            $viewData = [
             'maps' => Map::all()->sortBy('name'),
-            'user' => Auth::user(),
-        );
+            'user' => Auth::user()
+            ];
             $view->with($viewData);
         });
     }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 use Carbon\Carbon;
+use Auth;
 
 class Nade extends BaseModel
 {
