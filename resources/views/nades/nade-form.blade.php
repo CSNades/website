@@ -68,7 +68,7 @@
                         <!-- <label class="col-sm-12">Nade Type</label> -->
                         <label for="type" class="col-xs-12">Nade Type</label>
                         <div class="col-xs-12">
-                            @foreach (\App\Models\Nade::getNadeTypes() as $nadeTypeKey => $nadeType)
+                            @foreach ($nade->getNadeTypes() as $nadeTypeKey => $nadeType)
                             <div class="radio">
                                 <label>
                                     @if($nade->type == $nadeTypeKey)
