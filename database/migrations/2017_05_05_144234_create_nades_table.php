@@ -31,7 +31,7 @@ class CreateNadesTable extends Migration
             $table->string('tags');
             $table->integer('approved_by')->unsigned()->nullable();
             $table->foreign('approved_by')->references('id')->on('users');
-            $table->timestamp('approved_at');
+            $table->timestamp('approved_at')->nullable();
             $table->timestamps();
         });
     }

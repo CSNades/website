@@ -97,7 +97,11 @@
                         <div class="col-xs-12">
                             <div class="checkbox">
                                 <label>
+                                    @if($nade->is_working)
                                     <input type="checkbox" name="is_working" checked>
+                                    @else 
+                                    <input type="checkbox" name="is_working">
+                                    @endif
                                         Nade is currently working
                                 </label>
                             </div>
@@ -108,7 +112,11 @@
                         <div class="col-xs-12">
                             <div class="checkbox">
                                 <label>
+                                    @if($nade->isApproved())
                                     <input type="checkbox" name="is_approved" checked>
+                                    @else
+                                    <input type="checkbox" name="is_approved">
+                                    @endif
                                     Nade is approved
                                 </label>
                             </div>
