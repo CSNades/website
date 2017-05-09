@@ -10,7 +10,7 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">
                                 <i class="{{{ ($nade->is_working) ? "glyphicon glyphicon-ok text-success" : "" }}}"></i>
-                                <i class="{{{ $nade->getNadeIcon($nade->type) }}}" title="{{{ $nade->getNadeTypeLabel($nade->type) }}}"></i>
+                                <i class="{{{ $nade->getIcon() }}}" title="{{{ $nade->getLabel() }}}"></i>
                                 {{{ $nade->title }}}
                             </h3>
                             <div class="author">

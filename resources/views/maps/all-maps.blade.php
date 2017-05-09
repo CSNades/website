@@ -8,7 +8,7 @@
         <a href="{{{ route('get.maps.nades', array('slug' => $map->slug)) }}}" class="map-list" style="background-image: url('{{{ $map->image }}}')">
           <div class="map-title">{{{ $map->name }}}</div>
           <ul class="map-info">
-            @foreach (App\Models\Nade::getNadeTypes() as $nadeTypeKey => $nadeType)
+            @foreach ($nadeTypes as $nadeTypeKey => $nadeType)
             <li>
               {{ $map->nades()->where('type', $nadeTypeKey)->where('approved_by', '!=', null)->count() }}
               <i class="{{{ $nadeType['class'] }}}" title="{{{ $nadeType['label'] }}}"></i>

@@ -18,9 +18,9 @@ class NadesController extends Controller
     {
         if (!$nade) {
             $nade = new Nade();
-            $route = redirect()->route('get.nades.add');
+            $route = 'get.nades.add';
         } else {
-            $route = redirect()->route('get.nades.edit', $nade->id);
+            $route = 'get.nades.edit';
         }
 
         $map  = Map::where('name', $request->get('map'))->first();
@@ -54,7 +54,7 @@ class NadesController extends Controller
                          ->withInput();
         }
 
-        return $route->withFlashSuccess('Your nade has been saved.');
+        return redirect()->route($route, $nade->id)->withFlashSuccess('Your nade has been saved.');
     }
 
     public function deleteNade()
@@ -114,8 +114,8 @@ class NadesController extends Controller
             'heading'   => 'Add A Nade',
             'mapList'   => Map::all()->sortBy('name')->pluck('name', 'id'),
             'nade'      => $nade,
-            'nadeTypes' => Nade::getNadeTypes(),
-            'popSpots'  => Nade::getPopSpots(),
+            'nadeTypes' => $nade->getNadeTypes(),
+            'popSpots'  => $nade->getPopSpots(),
             'route'     => $route,
         ];
 

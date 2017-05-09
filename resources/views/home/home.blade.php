@@ -65,7 +65,7 @@
                     @foreach($nades as $nade)
                     <li>
                         <a href="#">
-                            <i class="{{ \App\Models\Nade::getNadeIcon($nade->type) }}" title="{{ App\Models\Nade::getNadeTypeLabel($nade->type) }}"></i>
+                            <i class="{{ $nade->getIcon() }}" title="{{ $nade->getLabel() }}"></i>
                             {{{ $nade->title }}}
                             <span>{{{ $nade->map->name }}}</span>
                         </a>

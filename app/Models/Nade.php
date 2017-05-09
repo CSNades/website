@@ -16,7 +16,7 @@ class Nade extends BaseModel
         'is_approved', 'tags',
     ];
 
-    protected static $nadeTypes = [
+    protected $nadeTypes = [
         'flash' => [
             'label' => 'Flashbang',
             'class' => 'fa fa-eye-slash',
@@ -63,24 +63,33 @@ class Nade extends BaseModel
         return $this;
     }
 
-    public static function getNadeTypes()
+    public function getNadeTypes()
     {
-        return self::$nadeTypes;
+        return $this->nadeTypes;
     }
 
     public function getNadeTypeKeys()
     {
-        return array_keys(self::$nadeTypes);
+        return array_keys($this->nadeTypes);
     }
 
     public static function getNadeTypeLabel($nadeType)
     {
-        return self::$nadeTypes[$nadeType]['label'];
-    }
-
-    public static function getNadeIcon($nadeType)
-    {
-        return self::$nadeTypes[$nadeType]['class'];
+        switch ($nadeType) {
+            case "flash":
+                $type = "Flashbang";
+                break;
+            case "frag":
+                $type = "High Explosive Grenade";
+                break;
+            case "fire":
+                $type = "Incendiary / Molotov";
+                break;
+            case "smoke":
+                $type = "Smoke Grenade";
+                break;
+        }
+        return $type;
     }
 
     public static function getPopSpots()
@@ -138,5 +147,14 @@ class Nade extends BaseModel
              ->setRule('is_approved', 'boolean')
              ->setRule('maps', 'exists:maps')
              ->setRule('type', 'required|in:' . implode(',', $this->getNadeTypeKeys()));
+    }
+
+    public function getIcon()
+    {
+        return $this->nadeTypes[$this->type]['class'];
+    }
+    public function getLabel()
+    {
+        return $this->nadeTypes[$this->type]['label'];
     }
 }
