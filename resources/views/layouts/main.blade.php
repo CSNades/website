@@ -78,11 +78,6 @@
               </div>
             </nav>
             <div class="row">
-                <div class="col-xs-12">
-                    <div class="alert alert-warning">
-                        CSNades is still in <strong>BETA!</strong> <span class="hidden-xs">Please be patient while we finish adding features!</span>
-                    </div>
-                </div>
                 @if(Session::has('flash_danger'))
                 <div class="col-xs-12">
                     <div class="alert alert-danger">
@@ -203,7 +198,7 @@
                     <ul>
                         <li><a href="http://steamcommunity.com/id/Jung3o">Jung3o</a> - Front-end</li>
                         <li><a href="http://steamcommunity.com/id/fatboyxpc">FatBoyXPC</a> - Back-end</li>
-                        <li><a href="http://steamcommunity.com/id/imnns/">NowNewStart</a> - Initial working concept</li>
+                        <li><a href="http://steamcommunity.com/id/imnns/">NowNewStart</a> - Initial working concept & Upgrading</li>
                     </ul>
                 </p>
                 <p>

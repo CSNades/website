@@ -11,7 +11,7 @@ class MapTableSeeder extends Seeder
 
         $maps = [
             'Dust 2'      => 'http://i.imgur.com/LZLDJK5.png',
-            'Train'       => 'http://i.imgur.com/4AjEXBC.jpg',
+            'Train'       => 'http://i.imgur.com/MeBGUEY.png',
             'Nuke'        => 'http://i.imgur.com/dcQbnwp.png',
             'Inferno'     => 'http://i.imgur.com/mPkTP5y.png',
             'Cache'       => 'http://i.imgur.com/Im0kNDY.png',

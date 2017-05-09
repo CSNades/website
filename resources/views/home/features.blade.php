@@ -8,15 +8,19 @@
                 <p>
                     We plan to implement these basic website features in the near future:
                     <br>
-                    Password Reset | User Profiles (Viewing and Editing) | Search
+                    <ul>
+                        <li>Password Reset</li>
+                        <li>User Profiles (Viewing and Editing)</li>
+                        <li>Search</li>
+                    </ul>
                 </p>
             </div>
         </div>
         @foreach($features as $feature)
         <div class="col-md-6 col-sm-12">
             <div class="item">
-                <h4>{{{ $feature['title'] }}} &mdash; <small>{{{ date("F j, Y", strtotime($feature['created_at'])) }}}</small></h4>
-                <p>{{{ $feature['description'] }}}</p>
+                <h4><a href="{{{ $feature['url'] }}}">{{{ $feature['title'] }}}</a> &mdash; <small>{{{ date("F j, Y", strtotime($feature['created_at'])) }}}</small></h4>
+                <p>{{{ $feature['body'] }}}</p>
             </div>
         </div>
         @endforeach

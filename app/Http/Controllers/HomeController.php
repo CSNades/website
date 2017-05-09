@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
 use App\Models\Nade;
+use GrahamCampbell\GitHub\Facades\GitHub;
 
 class HomeController extends Controller
 {
@@ -52,13 +53,9 @@ class HomeController extends Controller
 
     public function showFeatures()
     {
-        $endpoint = "https://gitlab.com/api/v3/projects/104982/issues?labels=Feature&state=opened";
-        $options  = array('headers' => array('PRIVATE-TOKEN' => getenv('gitlab_api_key')));
-        $client   = new Client();
-        $features = $client->get($endpoint, $options)->json();
         $viewData = array(
             'heading'  => 'Requested Features',
-            'features' => $features,
+            'features' => GitHub::issues()->all('csnades', 'website'),
         );
 
         return view('home.features')->with($viewData);
