@@ -35,7 +35,7 @@ class Nade extends BaseModel
         ],
     ];
 
-    protected static $popSpots = [
+    protected $popSpots = [
         'a-site' => 'A Site',
         'b-site' => 'B Site',
         'mid'    => 'Middle',
@@ -73,33 +73,15 @@ class Nade extends BaseModel
         return array_keys($this->nadeTypes);
     }
 
-    public static function getNadeTypeLabel($nadeType)
+
+    public function getPopSpotKeys()
     {
-        switch ($nadeType) {
-            case "flash":
-                $type = "Flashbang";
-                break;
-            case "frag":
-                $type = "High Explosive Grenade";
-                break;
-            case "fire":
-                $type = "Incendiary / Molotov";
-                break;
-            case "smoke":
-                $type = "Smoke Grenade";
-                break;
-        }
-        return $type;
+        return array_keys($this->popSpots);
     }
 
-    public static function getPopSpots()
+    public function getPopSpots()
     {
-        return self::$popSpots;
-    }
-
-    public static function getPopSpotKeys()
-    {
-        return array_keys(self::$popSpots);
+        return $this->popSpots;
     }
 
     public function isApproved()
