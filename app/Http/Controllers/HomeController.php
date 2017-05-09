@@ -55,7 +55,7 @@ class HomeController extends Controller
     {
         $viewData = array(
             'heading'  => 'Requested Features',
-            'features' => GitHub::issues()->all('csnades', 'website'),
+            'features' => GitHub::issues()->all('csnades', 'website', array('labels' => 'Feature')),
         );
 
         return view('home.features')->with($viewData);
