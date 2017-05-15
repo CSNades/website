@@ -47,17 +47,12 @@ class Nade extends BaseModel
         'messages'  => 'You must select a valid option from the list',
     ];
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function approve(User $user)
     {
         if (!$this->isApproved()) {
-            $this->approved_by = Auth::user()->id;
-            ;
+            $this->approved_by()->associate($user);
             $this->approved_at = $this->freshTimestamp();
+            $this->save();
         }
 
         return $this;
@@ -86,13 +81,7 @@ class Nade extends BaseModel
 
     public function isApproved()
     {
-        $emptyDate = new Carbon('0000-00-00 00:00:00');
-
-        if (!$this->approved_at || $emptyDate->gte($this->approved_at)) {
-            return false;
-        }
-
-        return true;
+        return $this->approved_by && $this->approved_at->gte($this->created_at);
     }
 
     public function approved_by()
