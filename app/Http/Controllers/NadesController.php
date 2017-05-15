@@ -47,7 +47,7 @@ class NadesController extends Controller
                 $nade->unapprove();
             }
         }
-        
+
         if (!$nade->save()) {
             return $route->withFlashDanger('There were some problems with your nade.')
                          ->withErrors($nade->getValidator())
@@ -64,30 +64,17 @@ class NadesController extends Controller
 
     public function showNadesInMap(Map $map)
     {
-        // Grouped Nades
-        // $nades = array();
-        // $nadeTypes = Nade::getNadeTypes();
+        $nades = $map->nades()->approved()
+            ->orderBy('approved_at', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
+            ->get();
 
-        // foreach ($map->nades as $nade) {
-        //     foreach ($nadeTypes as $nadeTypeKey => $nadeType) {
-        //         if ($nade->type == $nadeTypeKey) {
-        //             $nades[$nadeTypeKey][] = $nade;
-        //         }
-        //     }
-        // }
-        $nades = $map->nades()->where('approved_by', '!=', null)
-                              ->orderBy('approved_at', 'desc')
-                              ->orderBy('created_at', 'desc')
-                              ->orderBy('id', 'desc')
-                              ->get();
-
-        $viewData = [
+        return view('nades.ungrouped')->with([
             'heading'   => "$map->name Nades",
             'map'       => $map,
             'nades'     => $nades,
-            // 'nadeTypes' => $nadeTypes, // For grouped nades
-        ];
-        return view('nades.ungrouped')->with($viewData);
+        ]);
     }
 
     public function showMapAtPopSpot(Map $map, $pop)

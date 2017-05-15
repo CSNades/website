@@ -58,6 +58,11 @@ class Nade extends BaseModel
         return $this;
     }
 
+    public function scopeApproved($query)
+    {
+        return $query->whereNotNull('approved_by');
+    }
+
     public function getNadeTypes()
     {
         return $this->nadeTypes;
@@ -81,7 +86,7 @@ class Nade extends BaseModel
 
     public function isApproved()
     {
-        return $this->approved_by && $this->approved_at->gte($this->created_at);
+        return (bool) $this->approved_by;
     }
 
     public function approved_by()
