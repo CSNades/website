@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use App\User;
+use App\Models\Map;
 use App\Models\Nade;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -15,8 +17,8 @@ class ViewNadesInMapTest extends TestCase
     /** @test */
     public function userCanSeeApprovedImgurNadesInMap()
     {
-        $map = factory(\App\Models\Map::class)->create(['slug' => 'slug']);
-        $user = factory(\App\User::class)->create();
+        $map = factory(Map::class)->create(['slug' => 'slug']);
+        $user = factory(User::class)->create();
         $nade = factory(Nade::class)->states('approved')->make([
             'title' => 'Our Nade Title',
             'imgur_album' => 'http://imgur.com/csnades',
@@ -39,8 +41,8 @@ class ViewNadesInMapTest extends TestCase
     /** @test */
     public function userCannotSeeUnapprovedImgurNadesInMap()
     {
-        $map = factory(\App\Models\Map::class)->create(['slug' => 'dust2']);
-        $user = factory(\App\User::class)->create();
+        $map = factory(Map::class)->create(['slug' => 'dust2']);
+        $user = factory(User::class)->create();
         $nade = factory(Nade::class)->states('unapproved')->make([
             'title' => 'Our Nade Title',
             'imgur_album' => 'http://imgur.com/csnades',
@@ -63,8 +65,8 @@ class ViewNadesInMapTest extends TestCase
     /** @test */
     public function userCanSeeApprovedYoutubeNadesInAMap()
     {
-        $map = factory(\App\Models\Map::class)->create(['slug' => 'dust2']);
-        $user = factory(\App\User::class)->create();
+        $map = factory(Map::class)->create(['slug' => 'dust2']);
+        $user = factory(User::class)->create();
         $nade = factory(Nade::class)->states('approved')->make([
             'title' => 'Our Nade Title',
             'youtube' => 'https://youtube.com/csnades',
@@ -87,8 +89,8 @@ class ViewNadesInMapTest extends TestCase
     /** @test */
     public function userCannotSeeUnapprovedYoutubeNadesInAMap()
     {
-        $map = factory(\App\Models\Map::class)->create(['slug' => 'dust2']);
-        $user = factory(\App\User::class)->create();
+        $map = factory(Map::class)->create(['slug' => 'dust2']);
+        $user = factory(User::class)->create();
         $nade = factory(Nade::class)->states('unapproved')->make([
             'title' => 'Our Nade Title',
             'youtube' => 'https://youtube.com/csnades',
