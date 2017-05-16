@@ -17,17 +17,13 @@ class ViewNadesInMapTest extends TestCase
     /** @test */
     public function userCanSeeApprovedImgurNadesInMap()
     {
-        $map = factory(Map::class)->create(['slug' => 'slug']);
-        $user = factory(User::class)->create();
-        $nade = factory(Nade::class)->states('approved')->make([
+        $nade = factory(Nade::class)->states('approved')->create([
+            'map_id' => factory(Map::class)->create(['slug' => 'slug']),
             'title' => 'Our Nade Title',
             'imgur_album' => 'http://imgur.com/csnades',
             'type' => 'frag',
             'tags' => 'xbox',
         ]);
-
-        $nade->user()->associate($user);
-        $map->nades()->save($nade);
 
         $response = $this->get('/maps/slug');
 
@@ -41,19 +37,15 @@ class ViewNadesInMapTest extends TestCase
     /** @test */
     public function userCannotSeeUnapprovedImgurNadesInMap()
     {
-        $map = factory(Map::class)->create(['slug' => 'dust2']);
-        $user = factory(User::class)->create();
-        $nade = factory(Nade::class)->states('unapproved')->make([
+        $nade = factory(Nade::class)->states('unapproved')->create([
+            'map_id' => factory(Map::class)->create(['slug' => 'slug']),
             'title' => 'Our Nade Title',
             'imgur_album' => 'http://imgur.com/csnades',
             'type' => 'frag',
             'tags' => 'xbox',
         ]);
 
-        $nade->user()->associate($user);
-        $map->nades()->save($nade);
-
-        $response = $this->get('/maps/dust2');
+        $response = $this->get('/maps/slug');
 
         $response->assertStatus(200);
         $response->assertDontSee('Our Nade Title');
@@ -65,19 +57,15 @@ class ViewNadesInMapTest extends TestCase
     /** @test */
     public function userCanSeeApprovedYoutubeNadesInAMap()
     {
-        $map = factory(Map::class)->create(['slug' => 'dust2']);
-        $user = factory(User::class)->create();
-        $nade = factory(Nade::class)->states('approved')->make([
+        $nade = factory(Nade::class)->states('approved')->create([
+            'map_id' => factory(Map::class)->create(['slug' => 'slug']),
             'title' => 'Our Nade Title',
             'youtube' => 'https://youtube.com/csnades',
             'type' => 'frag',
             'tags' => 'xbox',
         ]);
 
-        $nade->user()->associate($user);
-        $map->nades()->save($nade);
-
-        $response = $this->get('/maps/dust2');
+        $response = $this->get('/maps/slug');
 
         $response->assertStatus(200);
         $response->assertSee('Our Nade Title');
@@ -89,19 +77,15 @@ class ViewNadesInMapTest extends TestCase
     /** @test */
     public function userCannotSeeUnapprovedYoutubeNadesInAMap()
     {
-        $map = factory(Map::class)->create(['slug' => 'dust2']);
-        $user = factory(User::class)->create();
-        $nade = factory(Nade::class)->states('unapproved')->make([
+        $nade = factory(Nade::class)->states('unapproved')->create([
+            'map_id' => factory(Map::class)->create(['slug' => 'slug']),
             'title' => 'Our Nade Title',
             'youtube' => 'https://youtube.com/csnades',
             'type' => 'frag',
             'tags' => 'xbox',
         ]);
 
-        $nade->user()->associate($user);
-        $map->nades()->save($nade);
-
-        $response = $this->get('/maps/dust2');
+        $response = $this->get('/maps/slug');
 
         $response->assertStatus(200);
         $response->assertDontSee('Our Nade Title');
