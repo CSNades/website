@@ -15,7 +15,7 @@ class ViewNadesInMapTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    public function userCanSeeApprovedImgurNadesInMap()
+    public function canSeeApprovedImgurNadesInMap()
     {
         $nade = factory(Nade::class)->states('approved')->create([
             'map_id' => factory(Map::class)->create(['slug' => 'slug']),
@@ -35,7 +35,7 @@ class ViewNadesInMapTest extends TestCase
     }
 
     /** @test */
-    public function userCannotSeeUnapprovedImgurNadesInMap()
+    public function cannotSeeUnapprovedImgurNadesInMap()
     {
         $nade = factory(Nade::class)->states('unapproved')->create([
             'map_id' => factory(Map::class)->create(['slug' => 'slug']),
@@ -55,7 +55,7 @@ class ViewNadesInMapTest extends TestCase
     }
 
     /** @test */
-    public function userCanSeeApprovedYoutubeNadesInAMap()
+    public function canSeeApprovedYoutubeNadesInAMap()
     {
         $nade = factory(Nade::class)->states('approved')->create([
             'map_id' => factory(Map::class)->create(['slug' => 'slug']),
@@ -75,7 +75,7 @@ class ViewNadesInMapTest extends TestCase
     }
 
     /** @test */
-    public function userCannotSeeUnapprovedYoutubeNadesInAMap()
+    public function cannotSeeUnapprovedYoutubeNadesInAMap()
     {
         $nade = factory(Nade::class)->states('unapproved')->create([
             'map_id' => factory(Map::class)->create(['slug' => 'slug']),
