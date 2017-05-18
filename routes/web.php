@@ -33,19 +33,19 @@ Route::get('maps', array('as' => 'get.maps.all', 'uses' => 'MapsController@showA
 // Route::get('nades', 'NadesController@showSomeNades');
 
 // Users
-Route::get('login', array('as' => 'get.users.login', 'uses' => 'UsersController@showLoginForm'));
-Route::post('login', array('as' => 'post.users.login', 'before' => 'csrf', 'uses' => 'UsersController@attemptLogin'));
+Route::get('login', ['as' => 'login', 'uses' => 'UsersController@showLoginForm']);
+Route::post('login', array('as' => 'login', 'before' => 'csrf', 'uses' => 'UsersController@attemptLogin'));
 Route::get('logout', array('as' => 'get.users.logout', 'uses' => 'UsersController@logout'));
 Route::get('register', array('as' => 'get.users.register', 'uses' => 'UsersController@showAddUserForm'));
 Route::post('register', array('as' => 'post.users.register', 'before' => 'csrf', 'uses' => 'UsersController@addUser'));
 Route::get('users/confirm/{code}', array('as' => 'get.users.confirm', 'uses' => 'UsersController@confirmUser'));
 
 // Users must be logged in to access these routes
-Route::group(array('before' => 'auth'), function () {
+Route::group(['middleware' => 'auth'], function () {
     // Nades
     Route::get('nades/add', array('as' => 'get.nades.add', 'uses' => 'NadesController@showNadeForm'));
     Route::post('nades/add', array('as' => 'post.nades.add', 'before' => 'csrf', 'uses' => 'NadesController@saveNade'));
-    
+
     // Users
     // Route::get('profile', array('as' => 'get.users.profile', 'uses' => 'UsersController@showProfile'));
 

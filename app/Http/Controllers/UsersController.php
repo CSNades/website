@@ -81,7 +81,7 @@ class UsersController extends Controller
         ];
 
         $flashDanger = 'Invalid username and password.';
-        return redirect()->route('get.users.login')->withFlashDanger($flashDanger);
+        return redirect()->route('login')->withFlashDanger($flashDanger);
     }
 
     public function confirmUser($code)
@@ -102,7 +102,7 @@ class UsersController extends Controller
         }
 
         $flashSuccess = 'Your account is confirmed! You may proceed to login.';
-        return redirect()->route('get.users.login')->withFlashSuccess($flashSuccess);
+        return redirect()->route('login')->withFlashSuccess($flashSuccess);
     }
 
     public function logout()
@@ -110,7 +110,7 @@ class UsersController extends Controller
         Auth::logout();
 
         $flashInfo = 'You have been logged out.';
-        return redirect()->route('get.users.login')->withFlashInfo($flashInfo);
+        return redirect()->route('login')->withFlashInfo($flashInfo);
     }
 
     public function showAddUserForm()

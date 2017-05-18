@@ -67,7 +67,7 @@
                             </li>
                             @else
                             <li>
-                                <a href="{{ route('get.users.login') }}">Login</a>
+                                <a href="{{ route('login') }}">Login</a>
                             </li>
                             <li>
                                 <a href="{{ route('get.users.register') }}">Register</a>
