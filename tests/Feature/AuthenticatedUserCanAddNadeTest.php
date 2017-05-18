@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use App\Models\Map;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -37,6 +38,51 @@ class AuthenticatedUserCanAddNadeTest extends TestCase
 
         $response->assertRedirect('/login');
         $this->assertDatabaseMissing('nades', [
+            'title' => 'A nade',
+            'pop_spot' => 'a-site',
+            'imgur_album' => 'http://imgur.com/csnades',
+            'youtube' => 'https://youtube.com',
+            'map_id' => $map->id,
+            'type' => 'smoke',
+            'tags' => 'xbox',
+            'is_working' => 1,
+        ]);
+    }
+
+    /** @test */
+    public function authenticatedUserCanLoadForm()
+    {
+        $user = factory(User::class)->create();
+        $response = $this->actingAs($user)->get('/nades/add');
+
+        $response->assertStatus(200);
+        $response->assertSee('name="title"');
+        $response->assertSee('name="pop_spot"');
+        $response->assertSee('name="imgur_album"');
+        $response->assertSee('name="youtube"');
+        $response->assertSee('name="map"');
+        $response->assertSee('name="type"');
+        $response->assertSee('name="tags"');
+        $response->assertSee('name="is_working"');
+    }
+
+    /** @test */
+    public function authenticatedUserCanSaveNade()
+    {
+        $user = factory(User::class)->create();
+        $map = factory(Map::class)->create(['name' => 'Map']);
+        $response = $this->actingAs($user)->post('/nades/add', [
+            'title' => 'A nade',
+            'pop_spot' => 'a-site',
+            'imgur_album' => 'http://imgur.com/csnades',
+            'youtube' => 'https://youtube.com',
+            'map' => $map->name,
+            'type' => 'smoke',
+            'tags' => 'xbox',
+            'is_working' => true,
+        ]);
+
+        $this->assertDatabaseHas('nades', [
             'title' => 'A nade',
             'pop_spot' => 'a-site',
             'imgur_album' => 'http://imgur.com/csnades',

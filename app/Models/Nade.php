@@ -7,13 +7,13 @@ use App\User;
 use Carbon\Carbon;
 use Auth;
 
-class Nade extends BaseModel
+class Nade extends Model
 {
     protected $dates = ['approved_at'];
 
     protected $fillable = [
         'type', 'pop_spot', 'title', 'imgur_album', 'youtube', 'is_working',
-        'is_approved', 'tags',
+        'tags', 'approved_by',
     ];
 
     protected $nadeTypes = [
@@ -89,7 +89,7 @@ class Nade extends BaseModel
         return (bool) $this->approved_by;
     }
 
-    public function approved_by()
+    public function approvedBy()
     {
         return $this->belongsTo(User::class, 'approved_by');
     }

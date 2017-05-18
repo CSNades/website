@@ -82,7 +82,7 @@ class NadesController extends Controller
         return $map . " | " . $pop;
     }
 
-    public function showNadeForm(Nade $nade = null)
+    public function showNadeForm(Nade $nade)
     {
         if ($nade) {
             $route = array('post.nades.edit', $nade->id);
