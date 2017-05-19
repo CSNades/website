@@ -47,12 +47,31 @@ class Nade extends Model
         'messages'  => 'You must select a valid option from the list',
     ];
 
-    public function approve(User $user)
+    protected function approve(User $user)
     {
+        $this->approvedBy()->associate($user);
+        $this->approved_at = $this->freshTimestamp();
+
+        return $this;
+    }
+
+    protected function unapprove()
+    {
+        return $this->approvedBy()->dissociate();
+    }
+
+    public function maybeChangeApproved($user, $approve)
+    {
+        if ($user->cant('approve', $this)) {
+            return $this;
+        }
+
+        if (!$approve) {
+            return $this->unapprove();
+        }
+
         if (!$this->isApproved()) {
-            $this->approved_by()->associate($user);
-            $this->approved_at = $this->freshTimestamp();
-            $this->save();
+            return $this->approve($user);
         }
 
         return $this;
@@ -99,18 +118,19 @@ class Nade extends Model
         return $this->belongsTo(Map::class);
     }
 
+    public function forMap($map)
+    {
+        return $this->map()->associate($map);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-
-    public function unapprove()
+    public function maybeForUser($user)
     {
-        $this->approved_by = null;
-        $this->approved_at = null;
-        $this->save();
-        return $this;
+        return !$this->user_id ? $this->user()->associate($user) : $this;
     }
 
     public function setNadeValidation()

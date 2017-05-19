@@ -14,39 +14,22 @@ class NadesController extends Controller
         //
     }
 
-    public function saveNade(Request $request, Nade $nade = null)
+    public function saveNade(Request $request, Nade $nade)
     {
-        if (!$nade) {
-            $nade = new Nade();
-            $route = 'get.nades.add';
-        } else {
-            $route = 'get.nades.edit';
-        }
+        $route = $nade->exists ? 'get.nades.edit' : 'get.nades.add';
 
         $map  = Map::findBySlug($request->get('map'));
         $user = Auth::user();
 
-        $nade->map()->associate($map);
+        $nadeData = $request->only([
+            'type', 'pop_spot', 'title', 'imgur_album', 'youtube', 'tags',
+            'is_working',
+        ]);
 
-        if (!$nade->user_id) {
-            $nade->user()->associate($user);
-        }
-
-        $nade->type        = $request->get('type');
-        $nade->pop_spot    = $request->get('pop_spot');
-        $nade->title       = $request->get('title');
-        $nade->imgur_album = $request->get('imgur_album');
-        $nade->youtube     = $request->get('youtube');
-        $nade->tags        = $request->get('tags');
-        $nade->is_working  = ($request->get('is_working') == 'on' ? true : false);
-
-        if ($user->is_mod) {
-            if ($request->get('is_approved')) {
-                $nade->approve($user);
-            } else {
-                $nade->unapprove();
-            }
-        }
+        $nade->maybeForUser($user)
+            ->forMap($map)
+            ->fill($nadeData)
+            ->maybeChangeApproved($user, $request->get('is_approved'));
 
         if (!$nade->save()) {
             return $route->withFlashDanger('There were some problems with your nade.')
@@ -55,11 +38,6 @@ class NadesController extends Controller
         }
 
         return redirect()->route($route, $nade->id)->withFlashSuccess('Your nade has been saved.');
-    }
-
-    public function deleteNade()
-    {
-        # code...
     }
 
     public function showNadesInMap(Map $map)
