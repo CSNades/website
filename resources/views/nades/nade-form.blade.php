@@ -18,11 +18,11 @@
                          <label for="map" class="col-sm-12">Map</label>
                         <div class="col-sm-12">
                             <select name="map" class="form-control">
-                                @foreach($mapList as $map)
+                                @foreach($mapList as $mapSlug => $map)
                                     @if(isset($nade->map->slug) && $nade->map->slug == $map)
-                                        <option name="{{ $map }}" selected>{{ $map }}</option>
+                                        <option name="{{ $mapSlug }}" selected>{{ $map }}</option>
                                     @else
-                                        <option name="{{ $map }}">{{ $map }}</option>
+                                        <option name="{{ $mapSlug }}">{{ $map }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -42,7 +42,7 @@
                                          <option name="{{ $key }}" value="{{ $key }}" selected>{{ $spot }}</option>
                                     @else
                                          <option name="{{ $key }}" value="{{ $key }}">{{ $spot }}</option>
-                                    @endif                               
+                                    @endif
                                 @endforeach
                             </select>
                             {{ $errors->first('pop_spot', '<span class="help-block">:message</span>') }}
@@ -51,14 +51,14 @@
                     <div class="form-group {{{ $errors->has('imgur_album') ? 'has-error' : '' }}}">
                         <label for="imgur_album" class="col-xs-12">Imgur Album</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" placeholder="http://imgur.com/a/album" name="imgur_album" value="{{ $nade->imgur_album }}"> 
+                            <input type="text" class="form-control" placeholder="http://imgur.com/a/album" name="imgur_album" value="{{ $nade->imgur_album }}">
                             {{ $errors->first('imgur_album', '<span class="help-block">:message</span>') }}
                         </div>
                     </div>
                     <div class="form-group {{{ $errors->has('youtube') ? 'has-error' : '' }}}">
                         <label for="youtube" class="col-xs-12">YouTube link</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" placeholder="https://www.youtube.com/watch?v=video" name="youtube" value="{{ $nade->youtube }}">                        
+                            <input type="text" class="form-control" placeholder="https://www.youtube.com/watch?v=video" name="youtube" value="{{ $nade->youtube }}">
                             {{ $errors->first('youtube', '<span class="help-block">:message</span>') }}
                         </div>
                     </div>
@@ -72,10 +72,10 @@
                             <div class="radio">
                                 <label>
                                     @if($nade->type == $nadeTypeKey)
-                                        <input type="radio" name="type" value="{{ $nadeTypeKey }}" name="{{ $nadeTypeKey }}" checked>     
+                                        <input type="radio" name="type" value="{{ $nadeTypeKey }}" name="{{ $nadeTypeKey }}" checked>
                                     @else
-                                        <input type="radio" name="type" value="{{ $nadeTypeKey }}" name="{{ $nadeTypeKey }}">                        
-                                    @endif         
+                                        <input type="radio" name="type" value="{{ $nadeTypeKey }}" name="{{ $nadeTypeKey }}">
+                                    @endif
                                         <i class="{{{ $nadeType['class'] }}}" title="{{{ $nadeType['label'] }}}"></i> {{{ $nadeType['label'] }}}
                                 </label>
                             </div>
@@ -99,7 +99,7 @@
                                 <label>
                                     @if($nade->is_working)
                                     <input type="checkbox" name="is_working" checked>
-                                    @else 
+                                    @else
                                     <input type="checkbox" name="is_working">
                                     @endif
                                         Nade is currently working

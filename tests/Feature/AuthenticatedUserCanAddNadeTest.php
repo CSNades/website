@@ -24,13 +24,13 @@ class AuthenticatedUserCanAddNadeTest extends TestCase
     /** @test */
     public function guestCannotSaveNade()
     {
-        $map = factory(Map::class)->create(['name' => 'Map']);
+        $map = factory(Map::class)->create(['slug' => 'slug']);
         $response = $this->post('/nades/add', [
             'title' => 'A nade',
             'pop_spot' => 'a-site',
             'imgur_album' => 'http://imgur.com/csnades',
             'youtube' => 'https://youtube.com',
-            'map' => $map->name,
+            'map' => 'slug',
             'type' => 'smoke',
             'tags' => 'xbox',
             'is_working' => true,
@@ -70,13 +70,13 @@ class AuthenticatedUserCanAddNadeTest extends TestCase
     public function authenticatedUserCanSaveNade()
     {
         $user = factory(User::class)->create();
-        $map = factory(Map::class)->create(['name' => 'Map']);
+        $map = factory(Map::class)->create(['slug' => 'slug']);
         $response = $this->actingAs($user)->post('/nades/add', [
             'title' => 'A nade',
             'pop_spot' => 'a-site',
             'imgur_album' => 'http://imgur.com/csnades',
             'youtube' => 'https://youtube.com',
-            'map' => $map->name,
+            'map' => 'slug',
             'type' => 'smoke',
             'tags' => 'xbox',
             'is_working' => true,

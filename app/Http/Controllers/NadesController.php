@@ -23,7 +23,7 @@ class NadesController extends Controller
             $route = 'get.nades.edit';
         }
 
-        $map  = Map::where('name', $request->get('map'))->first();
+        $map  = Map::where('slug', $request->get('map'))->first();
         $user = Auth::user();
 
         $nade->map()->associate($map);
@@ -99,7 +99,7 @@ class NadesController extends Controller
 
         $viewData = [
             'heading'   => 'Add A Nade',
-            'mapList'   => Map::all()->sortBy('name')->pluck('name', 'id'),
+            'mapList'   => Map::all()->sortBy('name')->pluck('name', 'slug'),
             'nade'      => $nade,
             'nadeTypes' => $nade->getNadeTypes(),
             'popSpots'  => $nade->getPopSpots(),
