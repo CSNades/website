@@ -23,7 +23,7 @@ class NadesController extends Controller
             $route = 'get.nades.edit';
         }
 
-        $map  = Map::where('slug', $request->get('map'))->first();
+        $map  = Map::findBySlug($request->get('map'));
         $user = Auth::user();
 
         $nade->map()->associate($map);
