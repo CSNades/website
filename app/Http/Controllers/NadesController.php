@@ -62,29 +62,14 @@ class NadesController extends Controller
 
     public function showNadeForm(Nade $nade)
     {
-        if ($nade) {
-            $route = array('post.nades.edit', $nade->id);
-            $nade->is_approved = false;
-
-            if ($nade->isApproved()) {
-                $nade->is_approved = true;
-            }
-        } else {
-            $nade      = new Nade();
-            $nade->map = new Map();
-            $route     = ['post.nades.add'];
-        }
-
-        $viewData = [
+        return view('nades.nade-form', [
             'heading'   => 'Add A Nade',
             'mapList'   => Map::all()->sortBy('name')->pluck('name', 'slug'),
             'nade'      => $nade,
-            'nadeTypes' => $nade->getNadeTypes(),
-            'popSpots'  => $nade->getPopSpots(),
-            'route'     => $route,
-        ];
-
-        return view('nades.nade-form')->with($viewData);
+            'nadeTypes' => Nade::getTypes(),
+            'popSpots'  => Nade::getPopSpots(),
+            'route'     => $nade->exists ? ['post.nades.edit', $nade->id] : ['post.nades.add'],
+        ]);
     }
 
     public function showUnapprovedNades()

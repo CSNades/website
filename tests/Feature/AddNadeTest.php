@@ -44,6 +44,8 @@ class AddNadeTest extends TestCase
     /** @test */
     public function authenticatedUserCanLoadAddNadeForm()
     {
+        $this->disableExceptionHandling();
+
         $user = factory(User::class)->create();
         $response = $this->actingAs($user)->get('/nades/add');
 

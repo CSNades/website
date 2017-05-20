@@ -68,7 +68,7 @@
                         <!-- <label class="col-sm-12">Nade Type</label> -->
                         <label for="type" class="col-xs-12">Nade Type</label>
                         <div class="col-xs-12">
-                            @foreach ($nade->getNadeTypes() as $nadeTypeKey => $nadeType)
+                            @foreach ($nadeTypes as $nadeTypeKey => $nadeType)
                             <div class="radio">
                                 <label>
                                     @if($nade->type == $nadeTypeKey)
@@ -98,9 +98,9 @@
                             <div class="checkbox">
                                 <label>
                                     @if($nade->is_working)
-                                    <input type="checkbox" name="is_working" checked>
+                                    <input type="checkbox" name="is_working" value="1" checked>
                                     @else
-                                    <input type="checkbox" name="is_working">
+                                    <input type="checkbox" name="is_working" value="1">
                                     @endif
                                         Nade is currently working
                                 </label>

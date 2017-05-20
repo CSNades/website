@@ -16,7 +16,7 @@ class Nade extends Model
         'tags', 'approved_by',
     ];
 
-    protected $nadeTypes = [
+    protected static $nadeTypes = [
         'flash' => [
             'label' => 'Flashbang',
             'class' => 'fa fa-eye-slash',
@@ -35,7 +35,7 @@ class Nade extends Model
         ],
     ];
 
-    protected $popSpots = [
+    protected static $popSpots = [
         'a-site' => 'A Site',
         'b-site' => 'B Site',
         'mid'    => 'Middle',
@@ -82,9 +82,9 @@ class Nade extends Model
         return $query->whereNotNull('approved_by');
     }
 
-    public function getNadeTypes()
+    public static function getTypes()
     {
-        return $this->nadeTypes;
+        return self::$nadeTypes;
     }
 
     public function getNadeTypeKeys()
@@ -98,9 +98,9 @@ class Nade extends Model
         return array_keys($this->popSpots);
     }
 
-    public function getPopSpots()
+    public static function getPopSpots()
     {
-        return $this->popSpots;
+        return self::$popSpots;
     }
 
     public function isApproved()
@@ -151,6 +151,6 @@ class Nade extends Model
     }
     public function getLabel()
     {
-        return $this->nadeTypes[$this->type]['label'];
+        return self::$nadeTypes[$this->type]['label'];
     }
 }

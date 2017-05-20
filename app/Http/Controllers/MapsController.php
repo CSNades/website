@@ -13,7 +13,7 @@ class MapsController extends Controller
         $viewData = array(
             'maps'    => $maps,
             'heading' => 'Maps',
-            'nadeTypes' => $nade->getNadeTypes(),
+            'nadeTypes' => Nade::getTypes(),
         );
 
         return view('maps.all-maps')->with($viewData);
