@@ -12,8 +12,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ViewNadesInMapTest extends TestCase
 {
-    use DatabaseMigrations;
-
     /** @test */
     public function canSeeApprovedImgurNadesInMap()
     {

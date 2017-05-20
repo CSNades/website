@@ -11,8 +11,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class NadeTest extends TestCase
 {
-    use DatabaseMigrations;
-
     /** @test */
     public function nadesWithApprovedByIdAreApproved()
     {

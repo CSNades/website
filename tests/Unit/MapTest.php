@@ -10,8 +10,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class MapTest extends TestCase
 {
-    use DatabaseMigrations;
-
     /** @test */
     public function findMapFromSlug()
     {
