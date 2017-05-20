@@ -5,22 +5,24 @@ namespace Tests\Feature;
 use App\User;
 use App\Models\Map;
 use Tests\TestCase;
+use App\Models\Nade;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class AuthenticatedUserCanAddNadeTest extends TestCase
+class AddNadeTest extends TestCase
 {
     /** @test */
-    public function guestGetsRedirected()
+    public function guestCannotLoadAddNadeForm()
     {
         $response = $this->get('/nades/add');
 
+        $response->assertStatus(302);
         $response->assertRedirect('/login');
     }
 
     /** @test */
-    public function guestCannotSaveNade()
+    public function guestCannotAddNade()
     {
         $map = factory(Map::class)->create(['slug' => 'slug']);
         $response = $this->post('/nades/add', [
@@ -34,21 +36,13 @@ class AuthenticatedUserCanAddNadeTest extends TestCase
             'is_working' => true,
         ]);
 
+        $response->assertStatus(302);
         $response->assertRedirect('/login');
-        $this->assertDatabaseMissing('nades', [
-            'title' => 'A nade',
-            'pop_spot' => 'a-site',
-            'imgur_album' => 'http://imgur.com/csnades',
-            'youtube' => 'https://youtube.com',
-            'map_id' => $map->id,
-            'type' => 'smoke',
-            'tags' => 'xbox',
-            'is_working' => 1,
-        ]);
+        $this->assertEquals(0, Nade::count());
     }
 
     /** @test */
-    public function authenticatedUserCanLoadForm()
+    public function authenticatedUserCanLoadAddNadeForm()
     {
         $user = factory(User::class)->create();
         $response = $this->actingAs($user)->get('/nades/add');
@@ -65,7 +59,7 @@ class AuthenticatedUserCanAddNadeTest extends TestCase
     }
 
     /** @test */
-    public function authenticatedUserCanSaveNade()
+    public function authenticatedUserCanAddNade()
     {
         $user = factory(User::class)->create();
         $map = factory(Map::class)->create(['slug' => 'slug']);
