@@ -42,12 +42,10 @@ class NadesController extends Controller
 
     public function showNadesInMap(Map $map)
     {
-        $nades = $map->nades()->approved()->preferredOrder()->get();
-
         return view('nades.ungrouped')->with([
             'heading'   => "$map->name Nades",
             'map'       => $map,
-            'nades'     => $nades,
+            'nades'     => $map->nades()->approved()->preferredOrder()->get(),
         ]);
     }
 
