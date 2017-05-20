@@ -23,6 +23,41 @@ class NadeTest extends TestCase
     }
 
     /** @test */
+    public function nadesInDescendingOrderByTimeApprovedThenCreatedThenById()
+    {
+        $approvedAtHigh = '2017-04-10 10:00:00';
+        $approvedAtLow = '2016-04-10 10:00:00';
+        $createdAtHigh = '2017-03-10 20:00:00';
+        $createdAtLow = '2016-03-10 20:00:00';
+
+        $before = collect([
+            factory(Nade::class)->create([
+                'approved_at' => $approvedAtLow,
+                'created_at' => $createdAtLow,
+            ]),
+            factory(Nade::class)->create([
+                'approved_at' => $approvedAtLow,
+                'created_at' => $createdAtHigh,
+            ]),
+            factory(Nade::class)->create([
+                'approved_at' => $approvedAtHigh,
+                'created_at' => $createdAtLow,
+            ]),
+            factory(Nade::class)->create([
+                'approved_at' => $approvedAtHigh,
+                'created_at' => $createdAtHigh,
+            ]),
+            factory(Nade::class)->create([
+                'approved_at' => $approvedAtHigh,
+                'created_at' => $createdAtHigh,
+            ]),
+        ]);
+
+        $sorted = Nade::approved()->preferredOrder()->get();
+        $this->assertEquals($before->reverse()->pluck('id'), $sorted->pluck('id'));
+    }
+
+    /** @test */
     public function canSetMapForNade()
     {
         $nade = factory(Nade::class)->create();

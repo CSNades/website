@@ -82,6 +82,13 @@ class Nade extends Model
         return $query->whereNotNull('approved_by');
     }
 
+    public function scopePreferredOrder($query)
+    {
+        return $query->orderBy('approved_at', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc');
+    }
+
     public static function getTypes()
     {
         return self::$nadeTypes;
