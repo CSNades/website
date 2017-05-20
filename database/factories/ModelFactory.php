@@ -62,8 +62,8 @@ $factory->state(Nade::class, 'unapproved', function (Faker\Generator $faker) {
 
 $factory->define(Map::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->word,
-        'slug' => $faker->word,
+        'name' => $faker->unique()->word,
+        'slug' => $faker->unique()->word,
         'image' => $faker->word,
     ];
 });
