@@ -18,18 +18,10 @@ class NadesController extends Controller
     {
         $route = $nade->exists ? 'get.nades.edit' : 'get.nades.add';
 
-        $map  = Map::findBySlug($request->get('map'));
-        $user = Auth::user();
-
-        $nadeData = $request->only([
+        $nade->fillAndAssociate(Auth::user(), $request->only([
             'type', 'pop_spot', 'title', 'imgur_album', 'youtube', 'tags',
-            'is_working',
-        ]);
-
-        $nade->maybeForUser($user)
-            ->forMap($map)
-            ->fill($nadeData)
-            ->maybeChangeApproved($user, $request->get('is_approved'));
+            'is_working', 'is_approved', 'map',
+        ]));
 
         if (!$nade->save()) {
             return $route->withFlashDanger('There were some problems with your nade.')

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 use Carbon\Carbon;
+use App\Models\Map;
 use Auth;
 
 class Nade extends Model
@@ -47,6 +48,37 @@ class Nade extends Model
         'messages'  => 'You must select a valid option from the list',
     ];
 
+    public function getIcon()
+    {
+        return $this->nadeTypes[$this->type]['class'];
+    }
+
+    public function getLabel()
+    {
+        return self::$nadeTypes[$this->type]['label'];
+    }
+
+    public static function getTypes()
+    {
+        return self::$nadeTypes;
+    }
+
+    public function getNadeTypeKeys()
+    {
+        return array_keys($this->nadeTypes);
+    }
+
+
+    public function getPopSpotKeys()
+    {
+        return array_keys($this->popSpots);
+    }
+
+    public static function getPopSpots()
+    {
+        return self::$popSpots;
+    }
+
     protected function approve(User $user)
     {
         $this->approvedBy()->associate($user);
@@ -87,27 +119,6 @@ class Nade extends Model
         return $query->orderBy('approved_at', 'desc')
             ->orderBy('created_at', 'desc')
             ->orderBy('id', 'desc');
-    }
-
-    public static function getTypes()
-    {
-        return self::$nadeTypes;
-    }
-
-    public function getNadeTypeKeys()
-    {
-        return array_keys($this->nadeTypes);
-    }
-
-
-    public function getPopSpotKeys()
-    {
-        return array_keys($this->popSpots);
-    }
-
-    public static function getPopSpots()
-    {
-        return self::$popSpots;
     }
 
     public function isApproved()
@@ -152,12 +163,12 @@ class Nade extends Model
              ->setRule('type', 'required|in:' . implode(',', $this->getNadeTypeKeys()));
     }
 
-    public function getIcon()
+    public function fillAndAssociate(User $user, $data)
     {
-        return $this->nadeTypes[$this->type]['class'];
+        return $this->maybeForUser($user)
+            ->forMap(Map::findBySlug($data['map']))
+            ->fill($data)
+            ->maybeChangeApproved($user, $data['is_approved']);
     }
-    public function getLabel()
-    {
-        return self::$nadeTypes[$this->type]['label'];
-    }
+
 }

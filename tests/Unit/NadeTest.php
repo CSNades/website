@@ -23,6 +23,36 @@ class NadeTest extends TestCase
     }
 
     /** @test */
+    public function fillAndUpdateAssociationsFromFillArray()
+    {
+        $user = factory(User::class)->create(['is_mod' => 1]);
+        $map = factory(Map::class)->create(['slug' => 'dust2']);
+        $nade = factory(Nade::class)->states('unapproved')->create();
+
+        $nade->fillAndAssociate($user, [
+            'type' => 'smoke',
+            'pop_spot' => 'a-site',
+            'title' => 'a cool nade!',
+            'imgur_album' => 'http://imgur.com/csnades',
+            'youtube' => 'https://youtube.com/csnades',
+            'tags' => 'xbox,goose',
+            'is_working' => 1,
+            'is_approved' => 1,
+            'map' => 'dust2',
+        ]);
+
+        $this->assertEquals($nade->type, 'smoke');
+        $this->assertEquals($nade->pop_spot, 'a-site');
+        $this->assertEquals($nade->title, 'a cool nade!');
+        $this->assertEquals($nade->imgur_album, 'http://imgur.com/csnades');
+        $this->assertEquals($nade->youtube, 'https://youtube.com/csnades');
+        $this->assertEquals($nade->tags, 'xbox,goose');
+        $this->assertEquals($nade->is_working, 1);
+        $this->assertEquals($nade->approved_by, $user->id);
+        $this->assertEquals($nade->map_id, $map->id);
+    }
+
+    /** @test */
     public function nadesInDescendingOrderByTimeApprovedThenCreatedThenById()
     {
         $approvedAtHigh = '2017-04-10 10:00:00';
