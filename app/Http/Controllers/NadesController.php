@@ -16,8 +16,6 @@ class NadesController extends Controller
 
     public function saveNade(Request $request, Nade $nade)
     {
-        $route = $nade->exists ? 'get.nades.edit' : 'get.nades.add';
-
         $nade->fillAndAssociate(Auth::user(), $request->only([
             'type', 'pop_spot', 'title', 'imgur_album', 'youtube', 'tags',
             'is_working', 'is_approved', 'map',
