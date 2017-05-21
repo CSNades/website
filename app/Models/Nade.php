@@ -141,6 +141,15 @@ class Nade extends Model
         return $this->map()->associate($map);
     }
 
+    public function mapSlug()
+    {
+        if (!$this->map) {
+            return null;
+        }
+
+        return $this->map->slug;
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

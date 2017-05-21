@@ -19,7 +19,7 @@
                         <div class="col-sm-12">
                             <select name="map" class="form-control">
                                 @foreach($mapList as $mapSlug => $map)
-                                    @if(isset($nade->map->slug) && $nade->map->slug == $map)
+                                    @if($nade->mapSlug() == $map)
                                         <option name="{{ $mapSlug }}" selected>{{ $map }}</option>
                                     @else
                                         <option name="{{ $mapSlug }}">{{ $map }}</option>
@@ -38,7 +38,7 @@
                         <div class="col-sm-12">
                             <select name="pop_spot" class="form-control">
                                 @foreach($popSpots as $key => $spot)
-                                    @if(isset($nade->map->pop_spot) && $nade->map->pop_spot == $key)
+                                    @if($nade->pop_spot == $key)
                                          <option name="{{ $key }}" value="{{ $key }}" selected>{{ $spot }}</option>
                                     @else
                                          <option name="{{ $key }}" value="{{ $key }}">{{ $spot }}</option>
