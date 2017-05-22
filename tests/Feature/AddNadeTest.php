@@ -42,7 +42,7 @@ class AddNadeTest extends TestCase
     }
 
     /** @test */
-    public function authenticatedUserCanLoadAddNadeForm()
+    public function userCanLoadAddNadeForm()
     {
         $this->disableExceptionHandling();
 
@@ -52,20 +52,10 @@ class AddNadeTest extends TestCase
         $response = $this->actingAs($user)->get('/nades/add');
 
         $response->assertStatus(200);
-        $response->assertSee('name="title"');
-        $response->assertSee('name="pop_spot"');
-        $response->assertSee('name="imgur_album"');
-        $response->assertSee('name="youtube"');
-        $response->assertSee('name="map"');
-        $response->assertSee('name="type"');
-        $response->assertSee('name="tags"');
-        $response->assertSee('name="is_working"');
-        $response->assertSee('slug');
-        $response->assertSee('Name');
     }
 
     /** @test */
-    public function authenticatedUserCanAddNade()
+    public function userCanAddNade()
     {
         $user = factory(User::class)->create();
         $map = factory(Map::class)->create(['slug' => 'slug']);

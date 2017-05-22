@@ -20,9 +20,9 @@
                             <select name="map" class="form-control">
                                 @foreach($mapList as $mapSlug => $map)
                                     @if($nade->mapSlug() == $map)
-                                        <option name="{{ $mapSlug }}" selected>{{ $map }}</option>
+                                        <option value="{{ $mapSlug }}" selected>{{ $map }}</option>
                                     @else
-                                        <option name="{{ $mapSlug }}">{{ $map }}</option>
+                                        <option value="{{ $mapSlug }}">{{ $map }}</option>
                                     @endif
                                 @endforeach
                             </select>
