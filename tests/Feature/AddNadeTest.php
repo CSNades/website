@@ -46,8 +46,6 @@ class AddNadeTest extends TestCase
     {
         $this->disableExceptionHandling();
 
-        factory(Map::class)->create(['slug' => 'slug', 'name' => 'Name']);
-
         $user = factory(User::class)->create();
         $response = $this->actingAs($user)->get('/nades/add');
 
