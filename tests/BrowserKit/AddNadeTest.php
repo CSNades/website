@@ -27,9 +27,7 @@ class AddNadeTest extends BrowserKitTestCase
             ->select('smoke', 'type')
             ->type('xbox,cat', 'tags')
             ->check('is_working')
-            ->press('Submit Nade');
-
-        $this->assertResponseStatus(200);
-        $this->seePageis('/nades/1/edit');
+            ->press('Submit Nade')
+            ->seePageis('/nades/' . Nade::first()->id . '/edit');
     }
 }

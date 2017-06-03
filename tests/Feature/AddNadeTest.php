@@ -78,8 +78,5 @@ class AddNadeTest extends TestCase
             'tags' => 'xbox',
             'is_working' => 1,
         ]);
-
-        $response->assertStatus(302);
-        $response->assertRedirect('/nades/1/edit');
     }
 }
