@@ -30,6 +30,6 @@ class AddNadeTest extends BrowserKitTestCase
             ->press('Submit Nade');
 
         $this->assertResponseStatus(200);
-        $this->seePageis('/nades/edit/1');
+        $this->seePageis('/nades/1/edit');
     }
 }
