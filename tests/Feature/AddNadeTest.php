@@ -25,7 +25,7 @@ class AddNadeTest extends TestCase
     public function guestCannotAddNade()
     {
         $map = factory(Map::class)->create(['slug' => 'slug']);
-        $response = $this->post('/nades/add', [
+        $response = $this->post('/nades', [
             'title' => 'A nade',
             'pop_spot' => 'a-site',
             'imgur_album' => 'http://imgur.com/csnades',
@@ -57,7 +57,7 @@ class AddNadeTest extends TestCase
     {
         $user = factory(User::class)->create();
         $map = factory(Map::class)->create(['slug' => 'slug']);
-        $response = $this->actingAs($user)->post('/nades/add', [
+        $response = $this->actingAs($user)->post('/nades', [
             'title' => 'A nade',
             'pop_spot' => 'a-site',
             'imgur_album' => 'http://imgur.com/csnades',

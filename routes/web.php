@@ -44,7 +44,7 @@ Route::get('users/confirm/{code}', array('as' => 'get.users.confirm', 'uses' => 
 Route::group(['middleware' => 'auth'], function () {
     // Nades
     Route::get('nades/add', array('as' => 'get.nades.add', 'uses' => 'NadesController@showNadeForm'));
-    Route::post('nades/add', array('as' => 'post.nades.add', 'before' => 'csrf', 'uses' => 'NadesController@saveNade'));
+    Route::post('nades', array('as' => 'post.nades.add', 'before' => 'csrf', 'uses' => 'NadesController@saveNade'));
 
     // Users
     // Route::get('profile', array('as' => 'get.users.profile', 'uses' => 'UsersController@showProfile'));

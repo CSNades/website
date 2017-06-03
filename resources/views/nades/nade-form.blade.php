@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-        <form method="POST">
+        <form method="POST" action="{{ $route }}">
             {{ csrf_field() }}
             <div class="row">
                 <div class="col-xs-12 col-sm-4 col-sm-offset-2">

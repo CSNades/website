@@ -54,7 +54,7 @@ class NadesController extends Controller
             'nade'      => $nade,
             'nadeTypes' => Nade::getTypes(),
             'popSpots'  => Nade::getPopSpots(),
-            'route'     => $nade->exists ? ['post.nades.edit', $nade->id] : ['post.nades.add'],
+            'route'     => $nade->exists ? route('post.nades.edit', $nade->id) : route('post.nades.add'),
         ]);
     }
 
