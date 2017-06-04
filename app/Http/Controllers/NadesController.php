@@ -27,9 +27,7 @@ class NadesController extends Controller
                          ->withInput();
         }
 
-        return redirect()
-            ->route('get.nades.edit', $nade->id)
-            ->withFlashSuccess('Your nade has been saved.');
+        return redirect()->back()->withFlashSuccess('Your nade has been saved.');
     }
 
     public function showNadesInMap(Map $map)

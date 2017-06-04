@@ -28,6 +28,6 @@ class AddNadeTest extends BrowserKitTestCase
             ->type('xbox,cat', 'tags')
             ->check('is_working')
             ->press('Submit Nade')
-            ->seePageis('/nades/' . Nade::first()->id . '/edit');
+            ->seePageis('/nades/add');
     }
 }
