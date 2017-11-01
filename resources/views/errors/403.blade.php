@@ -1,7 +1,5 @@
 @extends('layouts.main')
 
 @section('content')
-<h1>403</h1>
-<hr>
-<p>We have encountered an error. Please go back and try again.</p>
+<p>You do not have authorization to access this page.</p>
 @stop

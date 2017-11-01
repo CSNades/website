@@ -62,7 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
     // });
 
     // Users must be a mod to access these routes
-    Route::group(array('before' => 'auth.mod'), function () {
+    Route::group(array('middleware' => 'auth.mod'), function () {
         // Nades
         Route::get('nades/{nade}/edit', array('as' => 'get.nades.edit', 'uses' => 'NadesController@showNadeForm'));
         Route::post('nades/{nade}/edit', array('as' => 'post.nades.edit', 'uses' => 'NadesController@saveNade'));
