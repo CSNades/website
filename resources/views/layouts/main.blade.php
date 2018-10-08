@@ -48,7 +48,7 @@
                                 <a href="{{ route('get.maps.all') }}">Browse Maps</a>
                             </li>
                             <li>
-                                <a href="{{ route('post.nades.add') }}">Add Nade</a>
+                                <a href="{{ route('get.nades.add') }}">Add Nade</a>
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
